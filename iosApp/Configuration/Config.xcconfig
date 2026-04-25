@@ -1,0 +1,7 @@
+TEAM_ID=
+
+PRODUCT_NAME=Tcc_daviaugustolira
+PRODUCT_BUNDLE_IDENTIFIER=br.edu.utfpr.pb.tcc_daviaugustolira.Tcc_daviaugustolira$(TEAM_ID)
+
+CURRENT_PROJECT_VERSION=1
+MARKETING_VERSION=1.0
