@@ -14,6 +14,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.edu.utfpr.pb.tcc_daviaugustolira.home.ui.screen.HomeScreen
+import br.edu.utfpr.pb.tcc_daviaugustolira.home.ui.screen.HomeScreenRoute
+import br.edu.utfpr.pb.tcc_daviaugustolira.shared.ui.AppTheme
 import org.jetbrains.compose.resources.painterResource
 
 import tcc_daviaugustolira.composeapp.generated.resources.Res
@@ -22,7 +25,7 @@ import tcc_daviaugustolira.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-
+    AppTheme {
+        HomeScreenRoute()
     }
 }
