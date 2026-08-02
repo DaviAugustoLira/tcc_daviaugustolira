@@ -35,7 +35,7 @@ jobs:
           queries: security-and-quality
 
       - name: Build
-        run: ./gradlew :composeApp:compileKotlin :shared:compileKotlin :navigation:compileKotlin :feature:admin:login:compileKotlin :feature:home:compileKotlin :feature:search:compileKotlin --no-daemon
+        run: ./gradlew assembleDebug --no-daemon
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
