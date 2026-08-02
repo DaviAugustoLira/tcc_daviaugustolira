@@ -52,6 +52,12 @@ kotlin {
 
             // Kable — scanner BLE no Android (iOS usa CoreLocation, ver actual em iosMain).
             implementation(libs.kable.core)
+
+            // BoM dos artefatos nativos com.google.firebase:* que o GitLive Firebase (acima)
+            // referencia sem versão própria — `api` pra propagar pros consumidores (composeApp).
+            // project.dependencies.platform(...): ver nota em composeApp/build.gradle.kts
+            // (KT-58759 dentro de sourceSets.*.dependencies{}).
+            api(project.dependencies.platform("com.google.firebase:firebase-bom:${libs.versions.firebaseBom.get()}"))
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

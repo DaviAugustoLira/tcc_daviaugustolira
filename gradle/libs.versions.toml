@@ -20,6 +20,7 @@ kotlinxSerializationJson = "1.9.0"
 
 googleServices = "4.5.0"
 firebaseGitlive = "2.5.0"
+firebaseBom = "33.15.0"
 
 koin = "4.1.0"
 ktlintGradle = "14.2.0"
@@ -64,6 +65,10 @@ kable-core = { module = "com.juul.kable:kable-core", version.ref = "kable" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 #Firebase — GitLive KMP wrapper (commonMain, Android + iOS), ver CLAUDE.md secao 5
+# BoM: os artefatos nativos Android que o GitLive referencia (com.google.firebase:firebase-*)
+# não têm versão própria — dependem do BoM pra resolver. Versao pinada eh a que o GitLive
+# 2.5.0 foi testado contra.
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseGitlive" }
 firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseGitlive" }
 firebase-storage = { module = "dev.gitlive:firebase-storage", version.ref = "firebaseGitlive" }

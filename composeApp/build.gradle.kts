@@ -30,6 +30,15 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
+
+            // BoM do Firebase — ver :shared/build.gradle.kts. Declarado aqui também porque a
+            // configuração androidTest do app não herda os artefatos `api` do :shared para
+            // BOMs de plataforma da mesma forma que o classpath principal.
+            // project.dependencies.platform(...), não platform(...) direto: dentro de
+            // sourceSets.*.dependencies{} do KMP, KotlinDependencyHandler não tem os overloads
+            // tipados de platform() do Gradle — só um legado depreciado (KT-58759) que virou
+            // erro de compilação do script. Passar pelo DependencyHandler de verdade evita isso.
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:${libs.versions.firebaseBom.get()}"))
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
