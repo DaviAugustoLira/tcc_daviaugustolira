@@ -24,6 +24,7 @@ firebaseGitlive = "2.5.0"
 koin = "4.1.0"
 ktlintGradle = "14.2.0"
 detekt = "1.23.8"
+kotlinxCoroutines = "1.10.2"
 
 
 [libraries]
@@ -51,6 +52,9 @@ compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-previ
 
 #Serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+#Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 
 #Navigation
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

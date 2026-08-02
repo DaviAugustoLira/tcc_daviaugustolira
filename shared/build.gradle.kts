@@ -63,6 +63,9 @@ kotlin {
             // Koin — DI (ver CLAUDE.md secao 0).
             api(libs.koin.core)
 
+            // Coroutines/Flow — leituras de BLE, ver CLAUDE.md secao 6.
+            api(libs.kotlinx.coroutines.core)
+
             // Firebase — GitLive KMP wrapper, usable directly from commonMain (Android + iOS).
             // Android still needs google-services.json processed by composeApp (see its
             // build.gradle.kts) to initialize FirebaseApp; iOS needs GoogleService-Info.plist
@@ -73,7 +76,7 @@ kotlin {
             api(libs.firebase.functions)
         }
         commonTest.dependencies {
-//            implementation(libs.kotlin.test)
+            implementation(libs.kotlin.test)
         }
     }
 }
