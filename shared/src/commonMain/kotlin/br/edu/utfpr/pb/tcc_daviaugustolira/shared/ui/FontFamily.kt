@@ -7,11 +7,10 @@ import tcc_daviaugustolira.shared.generated.resources.Res
 import tcc_daviaugustolira.shared.generated.resources.Urbanist_VariableFont_wght
 
 @Composable
-fun appFontFamily(): FontFamily {
-    return FontFamily(
+fun appFontFamily(): FontFamily =
+    FontFamily(
         Font(
             Res.font.Urbanist_VariableFont_wght,
-            weight = FontWeight.MEDIUM
-        )
+            weight = FontWeight.MEDIUM,
+        ),
     )
-}

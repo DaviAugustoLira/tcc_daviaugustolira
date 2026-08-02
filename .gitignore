@@ -17,3 +17,14 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
+
+.claude
+
+# Firebase secrets — never commit, download from the Firebase console per platform
+google-services.json
+GoogleService-Info.plist
+
+# CocoaPods — reproducible via Podfile.lock + `pod install`, don't commit the resolved pods
+iosApp/Pods/
+
+openspec#

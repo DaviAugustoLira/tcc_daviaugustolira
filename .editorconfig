@@ -1,0 +1,8 @@
+root = true
+
+[*.{kt,kts}]
+# O pacote raiz do projeto (br.edu.utfpr.pb.tcc_daviaugustolira) usa underscore de propósito
+# (nome do repo/rootProject) — renomear está fora de escopo deste spike.
+ktlint_standard_package-name = disabled
+# Composables usam PascalCase por convenção do Compose (HomeScreen, SearchScreen, ...).
+ktlint_function_naming_ignore_when_annotated_with = Composable

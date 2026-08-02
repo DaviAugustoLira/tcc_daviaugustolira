@@ -28,6 +28,10 @@ dependencyResolutionManagement {
     }
 }
 
+include(":feature:admin:login")
 include(":composeApp")
+include(":feature:search")
+include(":feature:debug:beacons")
+include(":navigation")
 include(":feature:home")
 include(":shared")

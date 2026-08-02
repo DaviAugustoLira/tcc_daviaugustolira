@@ -14,7 +14,26 @@ junit = "4.13.2"
 kotlin = "2.3.20"
 material3 = "1.10.0-alpha05"
 
+navigationCompose = "2.9.0"
+
+kotlinxSerializationJson = "1.9.0"
+
+googleServices = "4.5.0"
+firebaseGitlive = "2.5.0"
+firebaseBom = "33.15.0"
+
+koin = "4.1.0"
+ktlintGradle = "14.2.0"
+detekt = "1.23.8"
+kotlinxCoroutines = "1.10.2"
+kable = "0.37.1"
+
+
 [libraries]
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -33,9 +52,38 @@ compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMul
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
 
+#Serialization
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+#Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+
+#BLE (Android — ver CLAUDE.md secao "Ponto critico": iOS usa CoreLocation, nao Kable)
+kable-core = { module = "com.juul.kable:kable-core", version.ref = "kable" }
+
+#Navigation
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#Firebase — GitLive KMP wrapper (commonMain, Android + iOS), ver CLAUDE.md secao 5
+# BoM: os artefatos nativos Android que o GitLive referencia (com.google.firebase:firebase-*)
+# não têm versão própria — dependem do BoM pra resolver. Versao pinada eh a que o GitLive
+# 2.5.0 foi testado contra.
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseGitlive" }
+firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseGitlive" }
+firebase-storage = { module = "dev.gitlive:firebase-storage", version.ref = "firebaseGitlive" }
+firebase-functions = { module = "dev.gitlive:firebase-functions", version.ref = "firebaseGitlive" }
+
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

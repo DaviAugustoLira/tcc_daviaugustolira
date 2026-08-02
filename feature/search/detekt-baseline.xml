@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:SearchScreen.kt$@Composable fun SearchScreen()</ID>
+    <ID>UnusedParameter:SearchScreen.kt$navigator: INavigator</ID>
+  </CurrentIssues>
+</SmellBaseline>

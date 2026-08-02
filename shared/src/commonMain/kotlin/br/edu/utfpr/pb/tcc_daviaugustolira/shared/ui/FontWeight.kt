@@ -1,7 +1,6 @@
 package br.edu.utfpr.pb.tcc_daviaugustolira.shared.ui
 
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
 object FontWeight {
     val EXTRA_LIGHT = FontWeight(100)
