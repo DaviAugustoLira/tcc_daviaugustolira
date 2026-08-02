@@ -49,6 +49,9 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            // Kable — scanner BLE no Android (iOS usa CoreLocation, ver actual em iosMain).
+            implementation(libs.kable.core)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

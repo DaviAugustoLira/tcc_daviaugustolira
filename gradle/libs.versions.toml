@@ -25,6 +25,7 @@ koin = "4.1.0"
 ktlintGradle = "14.2.0"
 detekt = "1.23.8"
 kotlinxCoroutines = "1.10.2"
+kable = "0.37.1"
 
 
 [libraries]
@@ -55,6 +56,9 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 #Coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+
+#BLE (Android — ver CLAUDE.md secao "Ponto critico": iOS usa CoreLocation, nao Kable)
+kable-core = { module = "com.juul.kable:kable-core", version.ref = "kable" }
 
 #Navigation
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
