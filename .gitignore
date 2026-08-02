@@ -26,3 +26,5 @@ GoogleService-Info.plist
 
 # CocoaPods — reproducible via Podfile.lock + `pod install`, don't commit the resolved pods
 iosApp/Pods/
+
+openspec#

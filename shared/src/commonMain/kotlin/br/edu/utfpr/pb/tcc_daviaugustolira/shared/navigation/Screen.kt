@@ -15,4 +15,7 @@ sealed class Screen {
 
     @Serializable
     data object BeaconDebug : Screen()
+
+    @Serializable
+    data object AdminHome : Screen()
 }

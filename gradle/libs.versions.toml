@@ -57,6 +57,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 #Coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 #BLE (Android — ver CLAUDE.md secao "Ponto critico": iOS usa CoreLocation, nao Kable)
 kable-core = { module = "com.juul.kable:kable-core", version.ref = "kable" }

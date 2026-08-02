@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.AdminShellScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.LoginScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.debug.beacons.presentation.screen.BeaconDebugScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.home.presentation.screen.HomeScreenRoute
@@ -42,6 +43,14 @@ fun Navigation() {
             BeaconDebugScreenRoute(
                 navigator,
             )
+        }
+
+        composable<Screen.AdminHome> {
+            AdminRouteGuard(navigator) {
+                AdminShellScreenRoute(
+                    navigator,
+                )
+            }
         }
     }
 }

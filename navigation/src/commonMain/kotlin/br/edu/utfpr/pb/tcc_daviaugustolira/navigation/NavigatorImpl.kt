@@ -14,4 +14,13 @@ class NavigatorImpl(
     override fun navigateBack() {
         navController.popBackStack()
     }
+
+    override fun navigateClearingBackStack(screen: Screen) {
+        navController.navigate(screen) {
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
 }

@@ -49,6 +49,9 @@ kotlin {
 
             implementation(project(":feature:admin:login"))
             implementation(project(":feature:debug:beacons"))
+
+            // Koin — resolve o ObserveSessionUseCase a partir do AdminRouteGuard.
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
