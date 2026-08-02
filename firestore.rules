@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Spike descartável (ver CLAUDE.md secao 5/9) — só prova que o app fala com o Firestore
+    // nas duas plataformas. Não faz parte do schema real do TCC (maps, points, beacons,
+    // historyCalibration, administrators, logs) e não deve virar padrão.
+    match /healthcheck/{docId} {
+      allow read, write: if true;
+    }
+
+    // Schema real fica fechado até cada coleção ganhar suas próprias regras (skill
+    // firestore-collection) — nunca abrir por padrão.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,6 +52,9 @@ fun BeaconDebugScreenRoute(navigator: INavigator) {
         onRequestPermissionResult = { granted ->
             viewModel.onIntent(BeaconDebugIntent.PermissionResult(granted))
         },
+        onRunFirebaseHealthcheck = {
+            viewModel.onIntent(BeaconDebugIntent.RunFirebaseHealthcheck)
+        },
         onNavigateBack = { navigator.navigateBack() },
     )
 }
@@ -59,6 +63,7 @@ fun BeaconDebugScreenRoute(navigator: INavigator) {
 fun BeaconDebugScreen(
     state: BeaconDebugState = BeaconDebugState(),
     onRequestPermissionResult: (Boolean) -> Unit = {},
+    onRunFirebaseHealthcheck: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
 ) {
     if (state.permissionGranted == null) {
@@ -84,34 +89,19 @@ fun BeaconDebugScreen(
                     .fillMaxSize()
                     .padding(16.dp),
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Image(
-                    painter = painterResource(Resources.Icons.ArrowLeftCircle),
-                    contentDescription = "Voltar",
-                    modifier =
-                        Modifier
-                            .size(48.dp)
-                            .clickable(onClickLabel = "Voltar", role = Role.Button, onClick = onNavigateBack),
-                )
-                Text(
-                    modifier =
-                        Modifier
-                            .padding(start = 12.dp)
-                            .semantics { heading() },
-                    text = "Beacons detectados",
-                )
-            }
+            BeaconDebugHeader(onNavigateBack = onNavigateBack)
 
-            val status = statusDescription(state)
             Text(
                 modifier =
                     Modifier
                         .padding(top = 16.dp)
                         .semantics { liveRegion = LiveRegionMode.Polite },
-                text = status,
+                text = statusDescription(state),
+            )
+
+            FirebaseHealthcheckSection(
+                result = state.healthcheckResult,
+                onRunFirebaseHealthcheck = onRunFirebaseHealthcheck,
             )
 
             LazyColumn(
@@ -123,6 +113,53 @@ fun BeaconDebugScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun BeaconDebugHeader(onNavigateBack: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Image(
+            painter = painterResource(Resources.Icons.ArrowLeftCircle),
+            contentDescription = "Voltar",
+            modifier =
+                Modifier
+                    .size(48.dp)
+                    .clickable(onClickLabel = "Voltar", role = Role.Button, onClick = onNavigateBack),
+        )
+        Text(
+            modifier =
+                Modifier
+                    .padding(start = 12.dp)
+                    .semantics { heading() },
+            text = "Beacons detectados",
+        )
+    }
+}
+
+@Composable
+private fun FirebaseHealthcheckSection(
+    result: String?,
+    onRunFirebaseHealthcheck: () -> Unit,
+) {
+    Button(
+        modifier = Modifier.padding(top = 16.dp),
+        onClick = onRunFirebaseHealthcheck,
+    ) {
+        Text("Testar Firebase (healthcheck)")
+    }
+
+    result?.let { healthcheckResult ->
+        Text(
+            modifier =
+                Modifier
+                    .padding(top = 8.dp)
+                    .semantics { liveRegion = LiveRegionMode.Polite },
+            text = healthcheckResult,
+        )
     }
 }
 
