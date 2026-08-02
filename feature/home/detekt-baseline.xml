@@ -2,6 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>LongMethod:HomeScreen.kt$@Composable fun HomeScreen( onNavigateToSearch: () -&gt; Unit = {}, onNavigateToExplorer: () -&gt; Unit = {}, onNavigateToLoginAdmin: () -&gt; Unit = {}, )</ID>
+    <ID>LongMethod:HomeScreen.kt$@Composable fun HomeScreen( onNavigateToSearch: () -&gt; Unit = {}, onNavigateToExplorer: () -&gt; Unit = {}, onNavigateToLoginAdmin: () -&gt; Unit = {}, onNavigateToBeaconDebug: () -&gt; Unit = {}, )</ID>
   </CurrentIssues>
 </SmellBaseline>

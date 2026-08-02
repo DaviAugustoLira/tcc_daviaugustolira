@@ -19,7 +19,10 @@ subprojects {
         android.set(true)
         ignoreFailures.set(false)
         filter {
-            exclude { entry -> entry.file.path.contains("${File.separator}build${File.separator}") }
+            // Diretórios de recursos gerados pelo Compose Multiplatform (Res.kt, resource
+            // collectors) são anexados dinamicamente ao source set — o filtro por glob normal
+            // não os alcança, só um Spec explícito. Ver FAQ do ktlint-gradle.
+            exclude { entry -> entry.file.path.contains("generated${File.separator}") }
         }
     }
 

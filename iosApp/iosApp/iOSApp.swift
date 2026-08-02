@@ -1,10 +1,10 @@
 import SwiftUI
-import shared
+import ComposeApp
 
 @main
 struct iOSApp: App {
     init() {
-        KoinInitKt.doInitKoin(appDeclaration: { _ in })
+        AppKoinKt.doInitAppKoin(appDeclaration: { _ in })
     }
 
     var body: some Scene {

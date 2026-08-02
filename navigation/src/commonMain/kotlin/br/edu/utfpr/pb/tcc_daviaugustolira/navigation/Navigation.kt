@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.LoginScreenRoute
+import br.edu.utfpr.pb.tcc_daviaugustolira.debug.beacons.presentation.screen.BeaconDebugScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.home.presentation.screen.HomeScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.search.presentation.screen.SearchScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.navigation.Screen
@@ -33,6 +34,12 @@ fun Navigation() {
 
         composable<Screen.Login> {
             LoginScreenRoute(
+                navigator,
+            )
+        }
+
+        composable<Screen.BeaconDebug> {
+            BeaconDebugScreenRoute(
                 navigator,
             )
         }

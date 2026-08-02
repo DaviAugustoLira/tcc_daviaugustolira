@@ -48,6 +48,7 @@ kotlin {
             implementation(project(":feature:search"))
 
             implementation(project(":feature:admin:login"))
+            implementation(project(":feature:debug:beacons"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

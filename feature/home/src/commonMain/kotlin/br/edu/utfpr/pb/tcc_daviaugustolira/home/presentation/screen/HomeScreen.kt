@@ -48,6 +48,9 @@ fun HomeScreenRoute(navigator: INavigator) {
         onNavigateToLoginAdmin = {
             navigator.navigate(Screen.Login)
         },
+        onNavigateToBeaconDebug = {
+            navigator.navigate(Screen.BeaconDebug)
+        },
     )
 }
 
@@ -56,6 +59,7 @@ fun HomeScreen(
     onNavigateToSearch: () -> Unit = {},
     onNavigateToExplorer: () -> Unit = {},
     onNavigateToLoginAdmin: () -> Unit = {},
+    onNavigateToBeaconDebug: () -> Unit = {},
 ) {
     Scaffold(
         containerColor = Color.BACKGROUND_20,
@@ -79,6 +83,45 @@ fun HomeScreen(
                         .padding(16.dp),
                 horizontalArrangement = Arrangement.End,
             ) {
+                // Entrada temporária pro spike de leitura de beacons — sem isso a tela de
+                // debug não é alcançável fora de preview. Ver plano do spike de BLE.
+                Button(
+                    contentPadding =
+                        PaddingValues(
+                            vertical = 4.dp,
+                            horizontal = 8.dp,
+                        ),
+                    onClick = onNavigateToBeaconDebug,
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = Color.BACKGROUND_30,
+                            contentColor = Color.BLACK_ABSOLUTE,
+                            disabledContainerColor = Color.BACKGROUND_30,
+                            disabledContentColor = Color.BLACK_ABSOLUTE,
+                        ),
+                    border =
+                        BorderStroke(
+                            1.dp,
+                            Color.BLACK_ABSOLUTE,
+                        ),
+                    shape = RoundedCornerShape(size = 10.dp),
+                    modifier =
+                        Modifier
+                            .semantics {
+                                contentDescription = "Debug de beacons"
+                            },
+                ) {
+                    Text(
+                        fontWeight = FontWeight.REGULAR,
+                        fontSize = FontSize.SMALL,
+                        text = "Debug de beacons",
+                    )
+                }
+                Spacer(
+                    modifier =
+                        Modifier
+                            .size(8.dp),
+                )
                 Button(
                     contentPadding =
                         PaddingValues(
