@@ -1,0 +1,14 @@
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    active: false
+
+naming:
+  # Pacote raiz do projeto (tcc_daviaugustolira) usa underscore de proposito; ver .editorconfig.
+  PackageNaming:
+    active: false
+  # Composables usam PascalCase por convencao do Compose (HomeScreen, SearchScreen, ...).
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']

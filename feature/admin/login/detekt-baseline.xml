@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:LoginScreen.kt$@Composable fun LoginScreen( onNavigateBack: () -&gt; Unit = {}, onNavigateToHome: () -&gt; Unit = {}, )</ID>
+  </CurrentIssues>
+</SmellBaseline>

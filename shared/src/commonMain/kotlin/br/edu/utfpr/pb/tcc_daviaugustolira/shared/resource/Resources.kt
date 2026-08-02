@@ -19,7 +19,5 @@ object Resources {
         val Lock = Res.drawable.lock
     }
 
-    object Audio {
-
-    }
+    object Audio
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:HomeScreen.kt$@Composable fun HomeScreen( onNavigateToSearch: () -&gt; Unit = {}, onNavigateToExplorer: () -&gt; Unit = {}, onNavigateToLoginAdmin: () -&gt; Unit = {}, )</ID>
+  </CurrentIssues>
+</SmellBaseline>

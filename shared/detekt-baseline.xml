@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:CustomTextField.kt$@Composable fun CustomTextField( modifier: Modifier = Modifier, placeholder: String = "", label: String = "", keyboardType: KeyboardType? = null, value: String, onValueChange: (String) -&gt; Unit, readOnly: Boolean = false, trailingIcon: @Composable () -&gt; Unit = {}, visualTransformation: VisualTransformation? = null, )</ID>
+    <ID>LongParameterList:CustomTextField.kt$( modifier: Modifier = Modifier, placeholder: String = "", label: String = "", keyboardType: KeyboardType? = null, value: String, onValueChange: (String) -&gt; Unit, readOnly: Boolean = false, trailingIcon: @Composable () -&gt; Unit = {}, visualTransformation: VisualTransformation? = null, )</ID>
+  </CurrentIssues>
+</SmellBaseline>

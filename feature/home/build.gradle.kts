@@ -16,7 +16,7 @@ kotlin {
 
     listOf(
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Home"
@@ -49,10 +49,16 @@ kotlin {
 
 android {
     namespace = "br.edu.utfpr.pb.tcc_daviaugustolira.home"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -63,4 +69,3 @@ android {
 dependencies {
     debugImplementation(libs.compose.uiTooling)
 }
-
