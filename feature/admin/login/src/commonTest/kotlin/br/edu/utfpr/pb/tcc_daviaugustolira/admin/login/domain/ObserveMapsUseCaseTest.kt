@@ -10,7 +10,11 @@ class ObserveMapsUseCaseTest {
     @Test
     fun `forwards the maps emitted by the repository`() =
         runTest {
-            val maps = listOf(IndoorMap(id = "map-1", name = "Bloco A"), IndoorMap(id = "map-2", name = "Bloco B"))
+            val maps =
+                listOf(
+                    IndoorMap(id = "map-1", name = "Bloco A", imageUrl = "https://example.com/bloco-a.png"),
+                    IndoorMap(id = "map-2", name = "Bloco B", imageUrl = "https://example.com/bloco-b.png"),
+                )
             val repository = FakeMapsRepository(initialMaps = maps)
             val useCase = ObserveMapsUseCase(repository)
 

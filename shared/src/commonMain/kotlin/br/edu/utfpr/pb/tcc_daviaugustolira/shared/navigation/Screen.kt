@@ -18,4 +18,14 @@ sealed class Screen {
 
     @Serializable
     data object AdminHome : Screen()
+
+    @Serializable
+    data object AdminCreateMap : Screen()
+
+    @Serializable
+    data class AdminMapViewer(
+        val mapId: String,
+        val name: String,
+        val imageUrl: String,
+    ) : Screen()
 }

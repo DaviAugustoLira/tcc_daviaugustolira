@@ -58,6 +58,14 @@ kotlin {
             // project.dependencies.platform(...): ver nota em composeApp/build.gradle.kts
             // (KT-58759 dentro de sourceSets.*.dependencies{}).
             api(project.dependencies.platform("com.google.firebase:firebase-bom:${libs.versions.firebaseBom.get()}"))
+
+            // Coil3 precisa de um engine Ktor concreto por plataforma para o carregamento de
+            // imagem via rede (ver coil-network-ktor3 em commonMain abaixo).
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            // Engine Ktor para iOS — contraparte do OkHttp usado em Android, acima.
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -83,6 +91,11 @@ kotlin {
             api(libs.firebase.firestore)
             api(libs.firebase.storage)
             api(libs.firebase.functions)
+
+            // Coil3 — carregamento de imagem assíncrono (KMP), usado pela miniatura de map
+            // no carousel admin e pela visualização em tela cheia (change admin-map-listing).
+            api(libs.coil.compose)
+            api(libs.coil.network.ktor3)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

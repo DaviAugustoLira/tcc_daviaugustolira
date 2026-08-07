@@ -5,7 +5,10 @@ import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.AdminMapViewerScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.AdminShellScreenRoute
+import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.CreateMapScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen.LoginScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.debug.beacons.presentation.screen.BeaconDebugScreenRoute
 import br.edu.utfpr.pb.tcc_daviaugustolira.home.presentation.screen.HomeScreenRoute
@@ -49,6 +52,23 @@ fun Navigation() {
             AdminRouteGuard(navigator) {
                 AdminShellScreenRoute(
                     navigator,
+                )
+            }
+        }
+
+        composable<Screen.AdminCreateMap> {
+            AdminRouteGuard(navigator) {
+                CreateMapScreenRoute(
+                    navigator,
+                )
+            }
+        }
+
+        composable<Screen.AdminMapViewer> { backStackEntry ->
+            AdminRouteGuard(navigator) {
+                AdminMapViewerScreenRoute(
+                    navigator = navigator,
+                    screen = backStackEntry.toRoute(),
                 )
             }
         }

@@ -1,8 +1,12 @@
 package br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,8 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
@@ -38,9 +44,11 @@ import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.viewmodel.Ad
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.presentation.viewmodel.AdminShellViewModel
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.IndoorMap
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.navigation.INavigator
+import br.edu.utfpr.pb.tcc_daviaugustolira.shared.navigation.Screen
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.ui.Color
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.ui.FontSize
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.ui.FontWeight
+import coil3.compose.AsyncImage
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -50,15 +58,17 @@ import org.koin.compose.viewmodel.koinViewModel
  * navegação em si é feita reativamente pelo guard ao ver a sessão virar Unauthenticated.
  */
 @Composable
-fun AdminShellScreenRoute(
-    @Suppress("UNUSED_PARAMETER") navigator: INavigator,
-) {
+fun AdminShellScreenRoute(navigator: INavigator) {
     val viewModel: AdminShellViewModel = koinViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     AdminShellScreen(
         state = state,
         onLogout = { viewModel.onIntent(AdminShellIntent.Logout) },
+        onNavigateToCreateMap = { navigator.navigate(Screen.AdminCreateMap) },
+        onOpenMap = { map ->
+            navigator.navigate(Screen.AdminMapViewer(mapId = map.id, name = map.name, imageUrl = map.imageUrl))
+        },
     )
 }
 
@@ -66,6 +76,8 @@ fun AdminShellScreenRoute(
 fun AdminShellScreen(
     state: AdminShellState = AdminShellState(),
     onLogout: () -> Unit = {},
+    onNavigateToCreateMap: () -> Unit = {},
+    onOpenMap: (IndoorMap) -> Unit = {},
 ) {
     val hapticFeedback = LocalHapticFeedback.current
     LaunchedEffect(state.mapsError) {
@@ -93,8 +105,11 @@ fun AdminShellScreen(
                 maps = state.maps,
                 isLoading = state.isLoadingMaps,
                 error = state.mapsError,
+                onOpenMap = onOpenMap,
             )
-            Spacer(modifier = Modifier.size(25.dp))
+            Spacer(modifier = Modifier.size(18.dp))
+            AdminShellCreateMapButton(onClick = onNavigateToCreateMap)
+            Spacer(modifier = Modifier.size(18.dp))
             AdminShellLogoutButton(onLogout = onLogout)
         }
     }
@@ -120,6 +135,7 @@ private fun AdminShellMapsSection(
     maps: List<IndoorMap>,
     isLoading: Boolean,
     error: String?,
+    onOpenMap: (IndoorMap) -> Unit,
 ) {
     Text(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
@@ -134,7 +150,7 @@ private fun AdminShellMapsSection(
         isLoading -> AdminShellMapsStatus("Carregando maps...")
         error != null -> AdminShellMapsStatus("Não foi possível carregar os maps agora.")
         maps.isEmpty() -> AdminShellMapsStatus("Nenhum map disponível ainda.")
-        else -> AdminShellMapsList(maps)
+        else -> AdminShellMapsCarousel(maps = maps, onOpenMap = onOpenMap)
     }
 }
 
@@ -154,39 +170,75 @@ private fun AdminShellMapsStatus(message: String) {
 }
 
 @Composable
-private fun AdminShellMapsList(maps: List<IndoorMap>) {
+private fun AdminShellMapsCarousel(
+    maps: List<IndoorMap>,
+    onOpenMap: (IndoorMap) -> Unit,
+) {
     LazyColumn(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .heightIn(max = 300.dp)
+                .heightIn(max = 400.dp)
                 .padding(horizontal = 30.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(maps, key = { it.id }) { map ->
-            Text(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(shape = RoundedCornerShape(size = 12.dp))
-                        .background(Color.BACKGROUND_30)
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                fontSize = FontSize.MEDIUM,
-                fontWeight = FontWeight.MEDIUM,
-                text = map.name,
-            )
+            AdminShellMapCard(map = map, onClick = { onOpenMap(map) })
         }
     }
 }
 
 @Composable
-private fun AdminShellLogoutButton(onLogout: () -> Unit) {
+private fun AdminShellMapCard(
+    map: IndoorMap,
+    onClick: () -> Unit,
+) {
+    val hapticFeedback = LocalHapticFeedback.current
+
+    Row(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .heightIn(min = 64.dp)
+                .clip(shape = RoundedCornerShape(size = 12.dp))
+                .background(Color.BACKGROUND_30)
+                .clickable(
+                    onClickLabel = "Abrir mapa ${map.name} em tela cheia",
+                    role = Role.Button,
+                    onClick = {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onClick()
+                    },
+                ).padding(horizontal = 16.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        AsyncImage(
+            model = map.imageUrl,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier =
+                Modifier
+                    .size(48.dp)
+                    .clip(shape = RoundedCornerShape(size = 8.dp))
+                    .background(Color.BACKGROUND_20),
+        )
+        Text(
+            fontSize = FontSize.MEDIUM,
+            fontWeight = FontWeight.MEDIUM,
+            text = map.name,
+        )
+    }
+}
+
+@Composable
+private fun AdminShellCreateMapButton(onClick: () -> Unit) {
     val hapticFeedback = LocalHapticFeedback.current
 
     Button(
         onClick = {
             hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-            onLogout()
+            onClick()
         },
         colors =
             ButtonDefaults.buttonColors(
@@ -198,12 +250,39 @@ private fun AdminShellLogoutButton(onLogout: () -> Unit) {
                 .clip(RoundedCornerShape(size = 24.dp))
                 .background(
                     brush = Brush.horizontalGradient(colors = listOf(Color.ORANGE_10, Color.ORANGE_20)),
-                ).semantics { contentDescription = "Sair da conta administrativa" },
+                ).semantics { contentDescription = "Cadastrar novo mapa" },
     ) {
         Text(
             modifier = Modifier.padding(vertical = 4.dp, horizontal = 32.dp),
             fontWeight = FontWeight.SEMIBOLD,
             fontSize = FontSize.MEDIUM,
+            text = "Cadastrar mapa",
+        )
+    }
+}
+
+@Composable
+private fun AdminShellLogoutButton(onLogout: () -> Unit) {
+    val hapticFeedback = LocalHapticFeedback.current
+
+    Button(
+        contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
+        onClick = {
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+            onLogout()
+        },
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = Color.BACKGROUND_30,
+                contentColor = Color.BLACK_ABSOLUTE,
+            ),
+        border = BorderStroke(1.dp, Color.BLACK_ABSOLUTE),
+        shape = RoundedCornerShape(size = 10.dp),
+        modifier = Modifier.semantics { contentDescription = "Sair da conta administrativa" },
+    ) {
+        Text(
+            fontWeight = FontWeight.REGULAR,
+            fontSize = FontSize.SMALL,
             text = "Sair",
         )
     }

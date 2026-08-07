@@ -7,8 +7,11 @@ import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.domain.ObserveMapsUseCase
 import br.edu.utfpr.pb.tcc_daviaugustolira.admin.login.domain.ObserveSessionUseCase
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.auth.AdminSession
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.auth.AdminSessionState
+import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.CreateMapError
+import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.CreateMapOutcome
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.IndoorMap
 import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.MapsRepository
+import br.edu.utfpr.pb.tcc_daviaugustolira.shared.domain.maps.NewMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -41,7 +44,7 @@ class AdminShellViewModelTest {
             val session = AdminSession(uid = "uid-1", email = "admin@example.com")
             val sessionRepository =
                 FakeAdminSessionRepository(initialSessionState = AdminSessionState.Authenticated(session))
-            val maps = listOf(IndoorMap(id = "map-1", name = "Bloco A"))
+            val maps = listOf(IndoorMap(id = "map-1", name = "Bloco A", imageUrl = "https://example.com/bloco-a.png"))
             val mapsRepository = FakeMapsRepository(initialMaps = maps)
 
             val viewModel = buildViewModel(sessionRepository, mapsRepository)
@@ -59,6 +62,11 @@ class AdminShellViewModelTest {
             val failingMapsRepository =
                 object : MapsRepository {
                     override fun observeMaps(): Flow<List<IndoorMap>> = flow { throw IllegalStateException("boom") }
+
+                    override suspend fun createMap(
+                        map: NewMap,
+                        createdByUid: String,
+                    ): CreateMapOutcome = CreateMapOutcome.Failure(CreateMapError.Unknown(null))
                 }
 
             val viewModel =

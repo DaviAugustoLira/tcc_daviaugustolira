@@ -27,6 +27,8 @@ ktlintGradle = "14.2.0"
 detekt = "1.23.8"
 kotlinxCoroutines = "1.10.2"
 kable = "0.37.1"
+coil = "3.4.0"
+ktor = "3.5.0"
 
 
 [libraries]
@@ -74,6 +76,12 @@ firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseG
 firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseGitlive" }
 firebase-storage = { module = "dev.gitlive:firebase-storage", version.ref = "firebaseGitlive" }
 firebase-functions = { module = "dev.gitlive:firebase-functions", version.ref = "firebaseGitlive" }
+
+#Coil3 — carregamento de imagem (KMP), miniatura/tela cheia de map (change admin-map-listing)
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 
 [plugins]

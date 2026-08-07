@@ -11,4 +11,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MapsRepository {
     fun observeMaps(): Flow<List<IndoorMap>>
+
+    suspend fun createMap(
+        map: NewMap,
+        createdByUid: String,
+    ): CreateMapOutcome
 }
